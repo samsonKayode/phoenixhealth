@@ -1,6 +1,5 @@
 package com.backend.phoenixhealth.jwt;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,15 +24,21 @@ public class JwtUserDetailsService implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
+		//return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				//new ArrayList<>());
+		return new MyUserDetails (user);
 	}
 
-	public DAOUser save(UserDTO user) {
-		DAOUser newUser = new DAOUser();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		return  userDao.save(newUser);
+	public DAOUser save(DAOUser user) {
+		//DAOUser newUser = new DAOUser();
+		//newUser.setUsername(user.getUsername());
+		//newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		user.setFullname(user.getFullname());
+		user.setUsername(user.getUsername());
+		user.setPassword(bcryptEncoder.encode(user.getPassword()));
+		user.setEnabled(user.isEnabled());
+		
+		return  userDao.save(user);
 	}
 
 }
