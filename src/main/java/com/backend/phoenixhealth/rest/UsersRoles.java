@@ -20,7 +20,7 @@ import com.backend.phoenixhealth.jwt.JwtUserDetailsService;
 import com.backend.phoenixhealth.jwt.UserDao;
 
 @RestController
-@RequestMapping("/ph/v1/users")
+@RequestMapping("/ph/users/v1")
 public class UsersRoles {
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
@@ -39,7 +39,12 @@ public class UsersRoles {
 	@PostMapping("/new")
 	public DAOUser saveUser(@RequestBody DAOUser user) {
 		
-		userService.save(user);
+		//Set<Role> roles = user.getRoles();
+		
+		//user.setRoles(roles);
+		//Role roles = roleRepo.findAllById(ids)
+		
+		userDAO.save(user);
 		log.info("New user saved");
 		
 		DAOUser myUser = userDAO.findByUsername(user.getUsername());

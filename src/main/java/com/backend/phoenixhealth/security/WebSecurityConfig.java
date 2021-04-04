@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/ph/new").hasAnyAuthority("USER", "DOCTOR", "POWER USER", "ADMIN", "BILLING", "LAB", "PHARMACY")
 				.antMatchers("/ph/edit/**").hasAnyAuthority("POWER USER", "ADMIN", "ADMIN PHARMACY")
-				.antMatchers("/ph/authenticate", "/ph/register").permitAll().
+				.antMatchers("/ph/authenticate", "/ph/users/**").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
